@@ -1,4 +1,4 @@
-module github.com/shihanng/polyclip
+module github.com/shihanng/polygon
 
 go 1.13
 

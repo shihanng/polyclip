@@ -1,4 +1,4 @@
-package polyclip
+package polygon
 
 import (
 	"fmt"

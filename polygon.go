@@ -1,4 +1,4 @@
-package polyclip
+package polygon
 
 // Point describes a vertex of a polygon in Cartesian coordinates.
 type Point struct {
