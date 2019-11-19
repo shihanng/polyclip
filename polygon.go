@@ -1,15 +1,30 @@
 package polygon
 
+// Polygon holds the x/y coordinates of vertices.
+type Polygon struct {
+	Vertices []Point
+}
+
+// Len implements one of the method of plotter.XYer interface.
+func (p *Polygon) Len() int {
+	return len(p.Vertices)
+}
+
+// XY implements one of the method of plotter.XYer interface.
+func (p *Polygon) XY(i int) (float64, float64) {
+	return p.Vertices[i].X, p.Vertices[i].Y
+}
+
 // Point describes a vertex of a polygon in Cartesian coordinates.
 type Point struct {
 	X, Y float64
 }
 
 // Clip computes the clipping polygon based on the Sutherland–Hodgman algorithm.
-func Clip(polyA, polyB []Point) []Point {
-	output := polyB
-	a1 := polyA[len(polyA)-1]
-	for _, a2 := range polyA { // Clipping edge: [cp1, cp2]
+func Clip(polyA, polyB *Polygon) *Polygon {
+	output := polyB.Vertices
+	a1 := polyA.Vertices[polyA.Len()-1]
+	for _, a2 := range polyA.Vertices { // Clipping edge: [a1, a2]
 		input := output
 		output = nil
 		b1 := input[len(input)-1]
@@ -26,7 +41,7 @@ func Clip(polyA, polyB []Point) []Point {
 		}
 		a1 = a2
 	}
-	return output
+	return &Polygon{Vertices: output}
 }
 
 func isInside(a1, a2, p Point) bool {
